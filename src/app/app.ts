@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { CounterComponent } from './components/counter';
-import { DemoChartComponent } from './components.react/DemoChart.wrapper';
-import { ReactCounterComponent } from './components.react/ReactCounter.wrapper';
+import { DemoChartWrapper } from './components.react/DemoChart';
+import { ReactCounterWrapper } from './components.react/ReactCounter';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, CounterComponent, ReactCounterComponent, DemoChartComponent],
+  imports: [CommonModule, CounterComponent, ReactCounterWrapper, DemoChartWrapper],
   templateUrl: './app.html',
 })
 export class App {
