@@ -20,7 +20,10 @@ export abstract class ReactWrapper implements AfterViewInit, OnDestroy {
   }
 
   // The render method is called by the child with the exact props.
-  protected render(component: React.ComponentType<any>, props: any): void {
+  protected render<P extends {}>(
+    component: React.ComponentType<P>,
+    props: React.ComponentProps<typeof component>
+  ): void {
     if (this.root) {
       const reactElement = createElement(component, props);
       this.root.render(reactElement);

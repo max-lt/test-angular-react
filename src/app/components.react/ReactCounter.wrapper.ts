@@ -35,7 +35,7 @@ export class ReactCounterComponent extends ReactWrapper {
     // We must pass the injector to it because we are no longer in the constructor context.
     effect(
       () => {
-        const props = {
+        const props: React.ComponentProps<typeof ReactCounter> = {
           startValue: this.startValue(), // We read the most recent value of the signal
           onCountChange: (event: any) => {
             this.countChange.emit(event.detail.value);

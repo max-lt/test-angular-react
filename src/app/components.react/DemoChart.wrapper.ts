@@ -1,11 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  effect,
-  input,
-  inject,
-  Injector,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, effect, input, inject, Injector } from '@angular/core';
 
 // Import abstract react wrapper
 import { ReactWrapper } from './wrapper';
@@ -32,7 +25,7 @@ export class DemoChartComponent extends ReactWrapper {
     // We create the effect here, once we are sure the view is initialized.
     effect(
       () => {
-        const props = {
+        const props: React.ComponentProps<typeof DemoChart> = {
           chartData: this.data(), // We read the most recent value of the signal
         };
 
