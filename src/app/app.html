@@ -75,7 +75,7 @@
         <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
           <li>
             <a
-              href="#"
+              routerLink="/"
               class="block py-2 pr-4 pl-3 text-white bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
               aria-current="page"
             >
@@ -84,7 +84,15 @@
           </li>
           <li>
             <a
-              href="#"
+              routerLink="/articles"
+              class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
+            >
+              Articles
+            </a>
+          </li>
+          <li>
+            <a
+              routerLink="/company"
               class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
             >
               Company
@@ -129,25 +137,7 @@
 </header>
 
 <section class="bg-white dark:bg-gray-900 min-h-[5em]">
-  <div class="p-4 m-4 border border-red-500 rounded-lg">
-    <h2>Angular Zone</h2>
-
-    <div>
-      Angular Counter Value: {{ count() }}
-
-      <br />
-
-      <div class="flex gap-4 mt-4">
-        <app-react-counter [startValue]="count()" (countChange)="handleReactCountChange($event)" />
-
-        <app-counter [startValue]="count()" (countChange)="handleAngularCountChange($event)" />
-      </div>
-
-      <div class="mt-8 px-4 py-2">
-        <app-demo-chart [data]="chartData()" />
-      </div>
-    </div>
-  </div>
+  <router-outlet />
 </section>
 
 <footer class="p-4 bg-gray-50 sm:p-6 dark:bg-gray-800">

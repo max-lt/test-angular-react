@@ -1,5 +1,11 @@
 You are an expert in TypeScript, Angular, and scalable web application development. You write maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
+## Development environment
+
+- Use Angular CLI for project scaffolding and management
+- Use Prettier for code formatting
+- Use bun as the package manager
+
 ## TypeScript Best Practices
 
 - Use strict type checking

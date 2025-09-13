@@ -1,0 +1,19 @@
+<div class="p-4 m-4 border border-red-500 rounded-lg">
+  <h2>Angular Zone</h2>
+
+  <div>
+    Angular Counter Value: {{ count() }}
+
+    <br />
+
+    <div class="flex gap-4 mt-4">
+      <app-react-counter [startValue]="count()" (countChange)="handleReactCountChange($event)" />
+
+      <app-counter [startValue]="count()" (countChange)="handleAngularCountChange($event)" />
+    </div>
+
+    <div class="mt-8 px-4 py-2">
+      <app-demo-chart [data]="chartData()" />
+    </div>
+  </div>
+</div>
