@@ -138,13 +138,13 @@
       <br />
 
       <div class="flex gap-4 mt-4">
-        <react-counter [startValue]="count()" (countChange)="handleReactCountChange($event)" />
+        <app-react-counter [startValue]="count()" (countChange)="handleReactCountChange($event)" />
 
         <app-counter [startValue]="count()" (countChange)="handleAngularCountChange($event)" />
       </div>
 
       <div class="mt-8 px-4 py-2">
-        <demo-chart [data]="chartData()" />
+        <app-demo-chart [data]="chartData()" />
       </div>
     </div>
   </div>

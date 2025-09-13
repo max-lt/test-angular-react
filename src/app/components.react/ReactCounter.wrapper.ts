@@ -1,63 +1,51 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  effect,
+  input,
+  output,
+  inject,
+  Injector,
+} from '@angular/core';
+
+// Import abstract react wrapper
+import { ReactWrapper } from './wrapper';
+
+// Import the React component we want to wrap
 import { ReactCounter } from './ReactCounter';
 
-class ReactCounterWrapper extends HTMLElement {
-  private root: ReactDOM.Root | null = null;
-  private props: any = {};
+@Component({
+  selector: 'app-react-counter',
+  standalone: true,
+  template: '', // The template remains empty, the base class handles rendering.
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class ReactCounterComponent extends ReactWrapper {
+  // We use the new syntax for inputs and outputs
+  startValue = input<number>(0);
+  countChange = output<number>();
 
-  // This will be called by Angular when using property binding [startValue]
-  set startValue(value: number) {
-    this.props.startvalue = value;
-    this.mount();
-  }
+  private injector = inject(Injector);
 
-  // 'connectedCallback' is called when the element is added to the DOM
-  connectedCallback() {
-    this.root = ReactDOM.createRoot(this);
-    this.mount();
-  }
+  override ngAfterViewInit() {
+    // We first call the base class method to create the React root.
+    super.ngAfterViewInit();
 
-  // 'attributeChangedCallback' is called when an observed attribute changes
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    // We update the props and re-render
-    this.props[name] = newValue;
-    this.mount();
-  }
+    // We create the effect here, once we are sure the view is initialized.
+    // We must pass the injector to it because we are no longer in the constructor context.
+    effect(
+      () => {
+        const props = {
+          startValue: this.startValue(), // We read the most recent value of the signal
+          onCountChange: (event: any) => {
+            this.countChange.emit(event.detail.value);
+          },
+        };
 
-  // 'static get observedAttributes' defines which attributes to watch
-  static get observedAttributes() {
-    // Must correspond to the prop names in kebab-case
-    return ['startvalue'];
-  }
-
-  // 'disconnectedCallback' is called when the element is removed from the DOM
-  disconnectedCallback() {
-    if (this.root) {
-      this.root.unmount();
-    }
-  }
-
-  private mount() {
-    // We convert the attributes (which are strings) to the correct types for React
-    const startValueProp = this.props.startvalue ? parseInt(this.props.startvalue, 10) : 0;
-
-    // We create the function to handle the event coming up from React
-    const handleCountChange = (event: any) => {
-      // We propagate the event as a real DOM event
-      this.dispatchEvent(new CustomEvent('countChange', { detail: event.detail }));
-    };
-
-    const element = React.createElement(ReactCounter, {
-      startValue: startValueProp,
-      onCountChange: handleCountChange,
-    });
-
-    if (this.root) {
-      this.root.render(element);
-    }
+        // We call the parent's render method which updates the React component
+        this.render(ReactCounter, props);
+      },
+      { injector: this.injector }
+    );
   }
 }
-
-// We define the custom element in the browser
-customElements.define('react-counter', ReactCounterWrapper);

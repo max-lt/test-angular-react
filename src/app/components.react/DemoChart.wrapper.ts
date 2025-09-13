@@ -1,36 +1,45 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  effect,
+  input,
+  inject,
+  Injector,
+} from '@angular/core';
+
+// Import abstract react wrapper
+import { ReactWrapper } from './wrapper';
+
+// Import the React component we want to wrap
 import { DemoChart } from './DemoChart';
 
-class DemoChartWrapper extends HTMLElement {
-  private root: ReactDOM.Root | null = null;
-  private props: any = {};
+@Component({
+  selector: 'app-demo-chart',
+  standalone: true,
+  template: '', // The template remains empty, the base class handles rendering.
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DemoChartComponent extends ReactWrapper {
+  // Input for the chart data
+  data = input<any[]>([]);
 
-  set data(value: any[]) {
-    this.props.chartdata = value;
-    this.mount();
-  }
+  private injector = inject(Injector);
 
-  connectedCallback() {
-    this.root = ReactDOM.createRoot(this);
-    this.mount();
-  }
+  override ngAfterViewInit() {
+    // We first call the base class method to create the React root.
+    super.ngAfterViewInit();
 
-  disconnectedCallback() {
-    if (this.root) {
-      this.root.unmount();
-    }
-  }
+    // We create the effect here, once we are sure the view is initialized.
+    effect(
+      () => {
+        const props = {
+          chartData: this.data(), // We read the most recent value of the signal
+        };
 
-  private mount() {
-    const element = React.createElement(DemoChart, {
-      chartData: this.props.chartdata,
-    });
-
-    if (this.root) {
-      this.root.render(element);
-    }
+        // We call the parent's render method which updates the React component
+        this.render(DemoChart, props);
+      },
+      { injector: this.injector }
+    );
   }
 }
-
-customElements.define('demo-chart', DemoChartWrapper);
