@@ -140,7 +140,7 @@
       <div class="flex gap-4 mt-4">
         <react-counter [startValue]="count()" (countChange)="handleReactCountChange($event)" />
 
-        <app-counter [count]="count()" (countChange)="handleReactCountChange($event)" />
+        <app-counter [startValue]="count()" (countChange)="handleAngularCountChange($event)" />
       </div>
     </div>
   </div>

@@ -20,4 +20,10 @@ export class App {
     this.title.set(`The count from React is now ${newCount}!`);
     this.count.set(newCount);
   }
+
+  handleAngularCountChange(newCount: number) {
+    console.log(`Event from Angular! The new count is: ${newCount}`);
+    this.title.set(`The count from Angular is now ${newCount}!`);
+    this.count.set(newCount);
+  }
 }
