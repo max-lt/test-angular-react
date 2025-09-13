@@ -1,17 +1,15 @@
 import React from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
 
-// Sample data - this could be passed as a prop
-const data = [
-  { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-  { name: 'Page B', uv: 300, pv: 4567, amt: 2400 },
-  { name: 'Page C', uv: 300, pv: 1398, amt: 2400 },
-  { name: 'Page D', uv: 200, pv: 9800, amt: 2400 },
-  { name: 'Page E', uv: 278, pv: 3908, amt: 2400 },
-  { name: 'Page F', uv: 189, pv: 4800, amt: 2400 },
-];
+export function DemoChart({ chartData = [] }: { chartData?: any[] }) {
+  if (!chartData || chartData.length === 0) {
+    return (
+      <div className="flex h-[300px] w-[500px] items-center justify-center rounded-md border border-dashed border-gray-300">
+        <p className="text-gray-500">No data to display</p>
+      </div>
+    );
+  }
 
-export function DemoChart({ chartData = data }: { chartData?: any[] }) {
   return (
     <LineChart width={500} height={300} data={chartData}>
       <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
