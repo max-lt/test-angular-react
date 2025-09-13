@@ -35,8 +35,12 @@
     "@angular/build": "^20.3.1",
     "@angular/cli": "^20.3.1",
     "@angular/compiler-cli": "^20.3.0",
+    "@lit/react": "^1.0.8",
     "@tailwindcss/postcss": "^4.1.13",
+    "@types/react-dom": "^19.1.9",
     "postcss": "^8.5.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "tailwindcss": "^4.1.13",
     "typescript": "~5.9.2"
   }
