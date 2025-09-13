@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { CounterComponent } from './components/counter/counter';
+import { CounterComponent } from './components/counter';
 
 @Component({
   selector: 'app-root',
